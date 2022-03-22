@@ -19,3 +19,5 @@ prog:${OBJ}
 clean:
 	${RM} prog
 	${RM} *.o
+	${RM} *.gif
+	${RM} *.png

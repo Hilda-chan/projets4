@@ -48,6 +48,7 @@ int main()
     FILE* fp;
     FILE* output = fopen("img.png","w");
     FILE* dot = fopen("dot2.dot","w");
+    FILE* gif = fopen("result.gif","w");
 
 
     printf("start\n");
@@ -82,20 +83,23 @@ int main()
         //printf("marks = %s\n",marks);
         i++;
     }
-    agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
-    gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
-    gvRender(gvc, G, "dot", dot); // NEW RENDER
+    //agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
+  //  gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
+//    gvRender(gvc, G, "dot", dot); // NEW RENDER
     gvFreeLayout(gvc, G);
 
     gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
     gvRender (gvc, G, "png", output);
+    //gvRenderFilename (gvc, G, "gif", "dot2.dot");
     gvFreeLayout(gvc, G);
 
     //printf("dfs :\n");
     //printf("atoi(): %d\n",atoi("1"));
     dfs(G,gvc,dot);
-    system("dot -Tgif dot2.dot -O");
+    system("dot -Tpng dot2.dot -O");
     fclose(fp);
+    fclose(gif);
+    fclose(dot);
     fclose(output);
     agclose(G);
     return 0;
