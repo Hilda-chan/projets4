@@ -5,23 +5,23 @@
 
 
 
-void __dfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc )
+void __dfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc, FILE* dot)
 {
     Agedge_t* e;
     *(marks+atoi(agget(n,"id"))) = 1;
     printf("id = %s\n",agget(n,"id"));
     agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
     gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
-    gvRender(gvc, G, "dot", NULL); // NEW RENDER
+    gvRender(gvc, G, "dot", dot); // NEW RENDER
     for(e=agfstedge(G,n);e;e=agnxtedge(G,e,n))
     {
         if(*(marks+atoi(agget(aghead(e),"id"))) == 0)
-            __dfs(G,aghead(e),marks, gvc);
+            __dfs(G,aghead(e),marks, gvc, dot);
     }
 }
 
 
-void dfs(Agraph_t * G, GVC_t* gvc)
+void dfs(Agraph_t * G, GVC_t* gvc, FILE* dot)
 {
     Agnode_t *node;
     int *marks = calloc(sizeof(int*),agnnodes(G));
@@ -32,7 +32,7 @@ void dfs(Agraph_t * G, GVC_t* gvc)
     {
         //printf("id = %s\n marks = %d\n",agget(node,"id"),*(marks+atoi(agget(node,"id"))));
         if(*(marks+atoi(agget(node,"id"))) == 0)
-            __dfs(G, node, marks, gvc);
+            __dfs(G, node, marks, gvc, dot);
     }
     printf("end dfs\n");
     free(marks);
@@ -59,11 +59,10 @@ int main()
     attr = agattr(G,AGNODE,"color","black");// SET DEFAULT NODE COLOR
     attr2 = agattr(G,AGNODE,"id","0");
     Agnode_t* n = agfstnode(G); //FIRST NODE
+    
     gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
-    gvRender(gvc, G, "dot", NULL); // NEW RENDER
+    gvRender(gvc, G, "dot", dot); // NEW RENDER
     gvFreeLayout(gvc, G);
-
-
 
     gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
     gvRender (gvc, G, "png", output);
@@ -84,9 +83,18 @@ int main()
         i++;
     }
     agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
+    gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
+    gvRender(gvc, G, "dot", dot); // NEW RENDER
+    gvFreeLayout(gvc, G);
+
+    gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
+    gvRender (gvc, G, "png", output);
+    gvFreeLayout(gvc, G);
+
     //printf("dfs :\n");
     //printf("atoi(): %d\n",atoi("1"));
-    dfs(G,gvc);
+    dfs(G,gvc,dot);
+    system("dot -Tgif dot2.dot -O");
     fclose(fp);
     fclose(output);
     agclose(G);
