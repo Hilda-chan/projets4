@@ -5,7 +5,7 @@ LDFLAGS=`pkg-config  libgvc --cflags` -lcgraph -lgvc
 LDLIBS=
 EXEC= prog
 
-SRC= main.c
+SRC= dfs.c main.c
 OBJ= ${SRC:.c=.o}
 
 all: ${EXEC}

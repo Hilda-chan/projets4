@@ -10,7 +10,7 @@ void __dfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc, FILE* dot)
     Agedge_t* e;
     *(marks+atoi(agget(n,"id"))) = 1;
     printf("id = %s\n",agget(n,"id"));
-    agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
+    agsafeset(n,"color","red","");// CHANGE NODE COLOR TO BLUE
     gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
     gvRender(gvc, G, "dot", dot); // NEW RENDER
     for(e=agfstedge(G,n);e;e=agnxtedge(G,e,n))
@@ -32,8 +32,14 @@ void dfs(Agraph_t * G, GVC_t* gvc, FILE* dot)
     {
         //printf("id = %s\n marks = %d\n",agget(node,"id"),*(marks+atoi(agget(node,"id"))));
         if(*(marks+atoi(agget(node,"id"))) == 0)
+        {
+            gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
+            gvRender(gvc, G, "dot", dot); // NEW RENDER
             __dfs(G, node, marks, gvc, dot);
+        }
     }
+    gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
+    gvRender(gvc, G, "dot", dot); // NEW RENDER
     printf("end dfs\n");
     free(marks);
 }
@@ -46,9 +52,9 @@ int main()
     Agnode_t* node;
     GVC_t* gvc;
     FILE* fp;
-    FILE* output = fopen("img.png","w");
+    //FILE* output = fopen("zimg.png","w");
     FILE* dot = fopen("dot2.dot","w");
-    FILE* gif = fopen("result.gif","w");
+    //FILE* gif = fopen("result.gif","w");
 
 
     printf("start\n");
@@ -61,13 +67,13 @@ int main()
     attr2 = agattr(G,AGNODE,"id","0");
     Agnode_t* n = agfstnode(G); //FIRST NODE
     
-    gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
-    gvRender(gvc, G, "dot", dot); // NEW RENDER
-    gvFreeLayout(gvc, G);
+    //gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
+    //gvRender(gvc, G, "dot", dot); // NEW RENDER
+    //gvFreeLayout(gvc, G);
 
-    gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
+    /*gvLayout (gvc, G, "dot"); // NEW LAYOUT FOR PNG
     gvRender (gvc, G, "png", output);
-    gvFreeLayout(gvc, G);
+    gvFreeLayout(gvc, G);*/
 
     int i = 0;
     char str[50];
@@ -86,35 +92,25 @@ int main()
     //agsafeset(n,"color","blue","");// CHANGE NODE COLOR TO BLUE
   //  gvLayout(gvc,G,"dot"); // NEW DOT WITH NODE COLOR CHANGED
 //    gvRender(gvc, G, "dot", dot); // NEW RENDER
-    gvFreeLayout(gvc, G);
+    //gvFreeLayout(gvc, G);
 
-    gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
-    gvRender (gvc, G, "png", output);
+    //gvLayout (gvc, G, "neato"); // NEW LAYOUT FOR PNG
+    //gvRender (gvc, G, "png", output);
     //gvRenderFilename (gvc, G, "gif", "dot2.dot");
-    gvFreeLayout(gvc, G);
+    //gvFreeLayout(gvc, G);
 
     //printf("dfs :\n");
     //printf("atoi(): %d\n",atoi("1"));
     dfs(G,gvc,dot);
     system("dot -Tpng dot2.dot -O");
+    system("convert -resize 768x576 -delay 100 -loop 1 *.png result.gif");
     fclose(fp);
-    fclose(gif);
+    //fclose(gif);
     fclose(dot);
-    fclose(output);
+    //fclose(output);
     agclose(G);
     return 0;
 }
 
 
 
-
-/*
-
-
-
-
-
-
-
-
- */
