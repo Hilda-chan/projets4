@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "queue.h"
+#include <graphviz/gvc.h>
+#include <graphviz/cgraph.h>
 
 // Create a queue
 struct queue* createQueue() {
@@ -19,28 +21,28 @@ int isEmpty(struct queue* q) {
 }
 
 // Adding elements into queue
-void enqueue(struct queue* q, int value) {
-  if (q->rear == SIZE - 1)
-    printf("\nQueue is Full!!");
-  else {
+void enqueue(struct queue* q, Agnode_t* n) {
+  //if (q->rear == SIZE - 1)
+    //printf("\nQueue is Full!!");
+ // else {
     if (q->front == -1)
       q->front = 0;
     q->rear++;
-    q->items[q->rear] = value;
-  }
+    q->items[q->rear] = n;
+  //}
 }
 
 // Removing elements from queue
-int dequeue(struct queue* q) {
-  int item;
+Agnode_t* dequeue(struct queue* q) {
+  Agnode_t* item;
   if (isEmpty(q)) {
-    printf("Queue is empty");
-    item = -1;
+    //printf("Queue is empty");
+    item = NULL;
   } else {
     item = q->items[q->front];
     q->front++;
     if (q->front > q->rear) {
-      printf("Resetting queue ");
+      //printf("Resetting queue ");
       q->front = q->rear = -1;
     }
   }
@@ -48,7 +50,7 @@ int dequeue(struct queue* q) {
 }
 
 // Print the queue
-void printQueue(struct queue* q) {
+/*void printQueue(struct queue* q) {
   int i = q->front;
 
   if (isEmpty(q)) {
@@ -59,4 +61,4 @@ void printQueue(struct queue* q) {
       printf("%d ", q->items[i]);
     }
   }
-}
+}*/

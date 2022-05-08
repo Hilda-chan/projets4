@@ -1,6 +1,9 @@
 digraph G {
-	graph [bb="0,0,180,174.37"];
-	node [id=0,
+	graph [bb="0,0,180,174.37",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -45,8 +48,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.3"];
-	node [id=0,
+	graph [bb="0,0,180,174.3",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -99,8 +105,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.24"];
-	node [id=0,
+	graph [bb="0,0,180,174.24",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -154,8 +163,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.19"];
-	node [id=0,
+	graph [bb="0,0,180,174.19",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -217,8 +229,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.15"];
-	node [id=0,
+	graph [bb="0,0,180,174.15",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -281,8 +296,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.11"];
-	node [id=0,
+	graph [bb="0,0,180,174.11",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -353,8 +371,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.08"];
-	node [id=0,
+	graph [bb="0,0,180,174.08",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -425,8 +446,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.06"];
-	node [id=0,
+	graph [bb="0,0,180,174.06",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{
@@ -505,8 +529,11 @@ digraph G {
 		width=0.75];
 }
 digraph G {
-	graph [bb="0,0,180,174.05"];
-	node [id=0,
+	graph [bb="0,0,180,174.05",
+		bgcolor=white
+	];
+	node [color=black,
+		id=0,
 		label="\N"
 	];
 	{

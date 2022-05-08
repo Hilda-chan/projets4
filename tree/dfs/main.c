@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <err.h>
-#include "isTree/IsTree.h"
+#include "dfs.h"
 
 int main(int argc, char** argv)
 {
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     int i;
     char str[50];
 
-    dot = fopen("treeTest/dot2.dot","w");
+    dot = fopen("dfsTest/dot2.dot","w");
     fp = fopen(argv[1],"r");
     G = agread(fp,0);
     gvc = gvContext(); // CREATE CONTEXT
@@ -34,24 +34,15 @@ int main(int argc, char** argv)
         i++;
     }
 
-    printf("nb node = %d\n",agnnodes(G));
-    int isCycle = IsCycle(G);
-    printf("isCycle = %d\n",isCycle);
-    int connexity = IsConnexe(G);
-    printf("connexity = %d\n",connexity);
-    printf("isCycle\n");
-    if(isCycle != 0)
-        err(1,"Your graph has cycle");
-    printf("connexity\n");
-    if(connexity != agnnodes(G))
-        err(1,"Your graph is not connexe");
-    //system("neato -Tpng dot2.dot -O");
-    //system("convert -resize 768x576 -delay 50 -loop 1 *.png result.gif");
-    //system("rm *.png");
+
+    dfs(G,gvc,dot);
+    system("dot -Tpng dfsTest/dot2.dot -O");
+    system("convert -resize 768x576 -delay 100 -loop 1 'dfsTest/dot2.dot.%d.png[0-17]' result.gif");
+    system("rm dfsTest/*.png");
     agclose(G);
     fclose(fp);
     fclose(dot);
-    //system("eog result.gif");
+    system("eog result.gif");
 
     return 0;
 }

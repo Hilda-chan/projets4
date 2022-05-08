@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "queue/queue.h"
+#include "../../queue/queue.h"
 #include <graphviz/gvc.h>
 #include <graphviz/cgraph.h>
 
-void __bfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc, FILE* dot)
+void __Gbfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc, FILE* dot)
 {
     Agedge_t* e;
     struct queue* q = createQueue();
@@ -40,20 +40,18 @@ void __bfs(Agraph_t* G, Agnode_t* n, int* marks, GVC_t* gvc, FILE* dot)
 
 
 
-void bfs(Agraph_t* G, GVC_t* gvc, FILE* dot)
+void Gbfs(Agraph_t* G, GVC_t* gvc, FILE* dot)
 {
-    printf("start bfs\n");
     Agnode_t* node;
     int *marks = calloc(sizeof(int*),agnnodes(G));
     memset(marks,0,agnnodes(G));
     for(node=agfstnode(G);node;node=agnxtnode(G,node))
     {
         if(*(marks+atoi(agget(node,"id"))) == 0)
-            __bfs(G,node,marks,gvc,dot);
+            __Gbfs(G,node,marks,gvc,dot);
     }
     gvLayout(gvc,G,"circo"); // NEW DOT WITH NODE COLOR CHANGED
     gvRender(gvc, G, "dot", dot); // NEW RENDER
-    printf("end bfs\n");
     free(marks);
 
 
